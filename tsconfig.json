@@ -1,0 +1,14 @@
+{
+	"compilerOptions": {
+		"module": "NodeNext",
+		"resolveJsonModule": true,
+		"outDir": "dist",
+		"allowImportingTsExtensions": true,
+		"noEmit": true,
+		"strict": true,
+		"skipLibCheck": true,
+		"exactOptionalPropertyTypes": true
+	},
+	"include": ["src", "index.ts"],
+	"exclude": ["node_modules", "dist"]
+}

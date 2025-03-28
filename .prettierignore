@@ -1,0 +1,5 @@
+dist
+.vscode
+.devbox
+node_modules
+pnpm-lock.yaml
