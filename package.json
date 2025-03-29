@@ -66,5 +66,9 @@
 		"onlyBuiltDependencies": [
 			"esbuild"
 		]
+	},
+	"prettier": {
+		"singleQuote": true,
+		"printWidth": 120
 	}
 }
