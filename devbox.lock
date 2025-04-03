@@ -4,6 +4,54 @@
     "github:NixOS/nixpkgs/nixpkgs-unstable": {
       "resolved": "github:NixOS/nixpkgs/1750f3c1c89488e2ffdd47cab9d05454dddfb734?lastModified=1742800061&narHash=sha256-oDJGK1UMArK52vcW9S5S2apeec4rbfNELgc50LqiPNs%3D"
     },
+    "hexyl@latest": {
+      "last_modified": "2025-03-23T05:31:05Z",
+      "resolved": "github:NixOS/nixpkgs/dd613136ee91f67e5dba3f3f41ac99ae89c5406b#hexyl",
+      "source": "devbox-search",
+      "version": "0.16.0",
+      "systems": {
+        "aarch64-darwin": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/7gq108nvh2vkx4xrw51xpf1iazsspsh5-hexyl-0.16.0",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/7gq108nvh2vkx4xrw51xpf1iazsspsh5-hexyl-0.16.0"
+        },
+        "aarch64-linux": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/hbhk5q8gfdvkiwgc35x4932j9s4ck4pz-hexyl-0.16.0",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/hbhk5q8gfdvkiwgc35x4932j9s4ck4pz-hexyl-0.16.0"
+        },
+        "x86_64-darwin": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/zr56zidr772qcx872kkqxdl50sr9spx0-hexyl-0.16.0",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/zr56zidr772qcx872kkqxdl50sr9spx0-hexyl-0.16.0"
+        },
+        "x86_64-linux": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/sk1biw4d8rjdihxkh8zh6pxmig53xv65-hexyl-0.16.0",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/sk1biw4d8rjdihxkh8zh6pxmig53xv65-hexyl-0.16.0"
+        }
+      }
+    },
     "nodejs@22": {
       "last_modified": "2025-03-11T17:52:14Z",
       "plugin_version": "0.0.2",

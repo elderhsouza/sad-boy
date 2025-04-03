@@ -15,6 +15,8 @@ export type CPU = {
 	readonly startInstructionCycle: () => void;
 };
 
+// Awaited<ReturnType<typeof whateverFn>>;
+
 const cpu: CPU = {
 	instructions: null,
 	rom: null,
