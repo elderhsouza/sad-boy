@@ -2,7 +2,7 @@
 	"name": "tsboy",
 	"version": "0.1.0",
 	"license": "MIT",
-	"bin": "dist/cli.js",
+	"bin": "dist/index.js",
 	"type": "module",
 	"engines": {
 		"node": ">=22"
@@ -10,65 +10,39 @@
 	"scripts": {
 		"build": "tsc",
 		"dev": "tsc --watch",
-		"test": "prettier --check . && xo && ava"
+		"test": "vitest",
+		"test:watch": "vitest --watch"
 	},
 	"files": [
 		"dist"
 	],
 	"dependencies": {
 		"arktype": "^2.1.15",
-		"consola": "^3.4.2",
-		"ink": "^5.2.0",
-		"node-pretty-logger": "^1.0.5",
 		"pino": "^9.6.0",
 		"pino-pretty": "^13.0.0",
-		"react": "^18.3.1"
+		"ts-pattern": "^5.7.0"
 	},
 	"devDependencies": {
+		"@eslint/compat": "^1.2.8",
 		"@eslint/js": "^9.23.0",
-		"@sindresorhus/tsconfig": "^7.0.0",
+		"@ianvs/prettier-plugin-sort-imports": "^4.4.1",
 		"@types/node": "22",
 		"@types/react": "^18.3.20",
-		"@vdemedes/prettier-config": "^2.0.1",
-		"ava": "^6.2.0",
-		"chalk": "^5.4.1",
+		"@vitest/ui": "^3.1.1",
 		"eslint": "^9.23.0",
-		"eslint-config-xo-react": "^0.28.0",
-		"eslint-plugin-react": "^7.37.4",
-		"eslint-plugin-react-hooks": "^5.2.0",
+		"eslint-plugin-import": "^2.31.0",
 		"globals": "^16.0.0",
-		"ink-testing-library": "^4.0.0",
-		"meow": "^13.2.0",
 		"prettier": "^3.5.3",
 		"ts-node": "^10.9.2",
 		"tsx": "^4.19.3",
+		"type-fest": "^4.39.1",
 		"typescript": "^5.8.2",
 		"typescript-eslint": "^8.28.0",
-		"xo": "^0.60.0"
-	},
-	"ava": {
-		"extensions": {
-			"ts": "module",
-			"tsx": "module"
-		},
-		"nodeArguments": [
-			"--loader=ts-node/esm"
-		]
-	},
-	"xo": {
-		"extends": "xo-react",
-		"prettier": true,
-		"rules": {
-			"react/prop-types": "off"
-		}
+		"vitest": "^3.1.1"
 	},
 	"pnpm": {
 		"onlyBuiltDependencies": [
 			"esbuild"
 		]
-	},
-	"prettier": {
-		"singleQuote": true,
-		"printWidth": 120
 	}
 }

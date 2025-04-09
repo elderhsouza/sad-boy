@@ -1,14 +1,27 @@
 {
 	"compilerOptions": {
-		"module": "NodeNext",
-		"resolveJsonModule": true,
-		"outDir": "dist",
 		"allowImportingTsExtensions": true,
+		"allowJs": true,
+		"esModuleInterop": true,
+		"exactOptionalPropertyTypes": true,
+		"isolatedModules": true,
+		"module": "Preserve",
+		"moduleDetection": "force",
 		"noEmit": true,
-		"strict": true,
+		"noImplicitOverride": true,
+		"outDir": "dist",
+		"resolveJsonModule": true,
 		"skipLibCheck": true,
-		"exactOptionalPropertyTypes": true
+		"sourceMap": true,
+		"strict": true,
+		"verbatimModuleSyntax": true,
 	},
-	"include": ["src", "index.ts"],
-	"exclude": ["node_modules", "dist"]
+	"include": [
+		"src",
+		"**/*.ts"
+	],
+	"exclude": [
+		"node_modules",
+		"dist"
+	]
 }

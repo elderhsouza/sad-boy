@@ -1,30 +1,12 @@
-import { Instructions } from './instructions.ts';
 import { logger } from './logger.ts';
-import exec from './operations.ts';
+import run from './operations.ts';
 
-export type CPU = {
-	instructions: null | Instructions;
-	rom: null | Buffer<ArrayBufferLike>;
-	ram: Buffer<ArrayBufferLike>;
-	registers: Record<'a' | 'b' | 'c' | 'd' | 'e' | 'h' | 'l' | 'af' | 'bc' | 'de' | 'hl', number>;
-	flags: Record<'z' | 'n' | 'h' | 'c', number>;
-	sp: number;
-	pc: number;
-	running: boolean;
-	readonly halt: () => void;
-	readonly startInstructionCycle: () => void;
-};
-
-// Awaited<ReturnType<typeof whateverFn>>;
-
-const cpu: CPU = {
-	instructions: null,
-	rom: null,
-	ram: Buffer.alloc(0xffff).fill(0x1),
+export const cpu = {
+	ram: Buffer.alloc(0xffff).fill(0xff),
 	registers: {
 		// 8-bit registers
 		a: 0,
-		b: 0xff,
+		b: 0,
 		c: 0,
 		d: 0,
 		e: 0,
@@ -52,49 +34,66 @@ const cpu: CPU = {
 	// program counter
 	pc: 0x100,
 	running: false,
+	reset() {
+		this.ram = Buffer.alloc(0xffff).fill(0xff);
+		this.pc = 0;
+		this.sp = 0;
+		this.registers = {
+			a: 0,
+			b: 0,
+			c: 0,
+			d: 0,
+			e: 0,
+			h: 0,
+			l: 0,
+			af: 0,
+			bc: 0,
+			de: 0,
+			hl: 0,
+		};
+		this.flags = {
+			c: 0,
+			n: 0,
+			h: 0,
+			z: 0,
+		};
+	},
 	halt() {
 		this.running = false;
 	},
 	startInstructionCycle() {
 		logger.info('start_instruction_cycle\n');
-
-		if (!this.instructions || !this.rom) throw new Error('fatal');
 		this.running = true;
 
 		const breakpoint = 0xff;
 
 		const timer = setInterval(() => {
-			if (!this.instructions || !this.rom) throw new Error('fatal');
-			if (this.pc === breakpoint || this.running === false) clearInterval(timer);
+			if (this.pc === breakpoint || this.running === false)
+				clearInterval(timer);
 
-			const byte = this.rom.readUint8(this.pc);
+			const byte = this.ram.readUint8(this.pc);
 			if (byte === breakpoint) clearInterval(timer);
 
-			logger.info('regs\t%s', JSON.stringify(this.registers));
-			logger.info(`b %s\thl %s`, this.registers.b.toString(16), this.registers.hl.toString(16));
-			logger.info('flag\t%s', JSON.stringify(this.flags));
-			logger.info(
-				`byte %s\t%s\t%s`,
-				this.pc.toString(16),
-				byte.toString(16),
-				Buffer.from(this.rom.buffer, this.pc, 4).toString('hex').match(/.{2}/g)?.join(' '),
-			);
-
-			const operation = this.instructions.default.get(byte);
-			exec({ byte, cpu: this, payload: operation! });
+			run(byte);
 
 			console.log(Buffer.from(this.ram.buffer, 0xdfee, 0xdfff - 0xdfee));
-		}, 100);
+		}, 300);
 	},
 };
 
-export default function loadCPU({ instructions, rom }: { instructions: Instructions; rom: Buffer<ArrayBufferLike> }) {
+export default function loadCPU(rom: Buffer<ArrayBufferLike>) {
 	logger.info('load_cpu');
+	rom.copy(cpu.ram, 0x0, 0x0, 0x8000);
 
-	cpu.instructions = instructions;
-	cpu.rom = rom;
-	cpu.rom.copy(cpu.ram, 0x0, 0x0, 0x8000);
-
-	// process.exit();
 	return cpu;
 }
+
+// logger.info('regs\t%s', JSON.stringify(this.registers));
+// logger.info(`b %s\thl %s`, this.registers.b.toString(16), this.registers.hl.toString(16));
+// logger.info('flag\t%s', JSON.stringify(this.flags));
+// logger.info(
+// 	`byte %s\t%s\t%s`,
+// 	this.pc.toString(16),
+// 	address.toString(16),
+// 	Buffer.from(this.rom.buffer, this.pc, 4).toString('hex').match(/.{2}/g)?.join(' '),
+// );
